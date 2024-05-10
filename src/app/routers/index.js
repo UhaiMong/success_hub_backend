@@ -3,10 +3,15 @@ import { UserRoutes } from "../modules/users/user.route.js";
 import { BannerRoutes } from "../modules/banner/banner.route.js";
 import { EventRoutes } from "../modules/event/event.route.js";
 import { NewsRoute } from "../modules/news/news.route.js";
+import { AdminRoute } from "../modules/admin/admin.route.js";
 
 const routers = express.Router();
 
 const routerModule = [
+  {
+    path: "/admin",
+    route: AdminRoute,
+  },
   {
     path: "/users",
     route: UserRoutes,
