@@ -20,11 +20,12 @@ app.use("/images", express.static("images"));
 app.use("/news", express.static("news"));
 app.use("/events", express.static("events"));
 app.use("/banners", express.static("banners"));
+app.use("/alumnus", express.static("alumnus"));
 
 app.use("/api/v1/", routers);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to test route");
+  res.send("Welcome to the success hub backend server");
 });
 
 app.use(globalErrorHandler);

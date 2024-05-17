@@ -4,6 +4,7 @@ import { BannerRoutes } from "../modules/banner/banner.route.js";
 import { EventRoutes } from "../modules/event/event.route.js";
 import { NewsRoute } from "../modules/news/news.route.js";
 import { AdminRoute } from "../modules/admin/admin.route.js";
+import { AlumniRoute } from "../modules/alumnus/alumni.route.js";
 
 const routers = express.Router();
 
@@ -15,6 +16,10 @@ const routerModule = [
   {
     path: "/users",
     route: UserRoutes,
+  },
+  {
+    path: "/alumni",
+    route: AlumniRoute,
   },
   {
     path: "/event",
