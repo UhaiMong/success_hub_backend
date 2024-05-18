@@ -1,6 +1,6 @@
 import express from "express";
-import validateRequest from "../../middleware/validationRequest.js";
-import { AlumniValidation } from "./alumni.validation.js";
+// import validateRequest from "../../middleware/validationRequest.js";
+// import { AlumniValidation } from "./alumni.validation.js";
 import { AlumnusController } from "./alumnus.controller.js";
 import { AlumniImageUpload } from "../../middleware/uploader/uploadAlumnus.js";
 
@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post(
   "/alumni-register",
-  validateRequest(AlumniValidation.registerAlumniValidateSchema),
+  // validateRequest(AlumniValidation.registerAlumniValidateSchema),
   AlumniImageUpload.uploadAlumniImage,
   AlumnusController.registerAlumni
 );

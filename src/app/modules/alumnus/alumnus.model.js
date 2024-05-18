@@ -1,20 +1,22 @@
 import { Schema, model } from "mongoose";
+import validator from "validator";
+import bcrypt from "bcryptjs";
 
 const alumnusSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
+      required: [true, "Required Field"],
       trim: true,
       lowercase: true,
     },
     firstName: {
       type: String,
-      required: true,
+      required: [true, "Required Field"],
     },
     lastName: {
       type: String,
-      required: true,
+      required: [true, "Required Field"],
     },
     profilePhoto: {
       type: String,
@@ -26,11 +28,11 @@ const alumnusSchema = new Schema(
     },
     gender: {
       type: String,
-      required: true,
+      required: [true, "Required Field"],
       default: "other",
     },
     dob: {
-      type: Date,
+      type: String,
       validate: {
         validator: function (value) {
           if (!validator.isDate(value)) {
@@ -49,37 +51,38 @@ const alumnusSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Required Field"],
       trim: true,
       lowercase: true,
+      unique: true,
     },
     phone: {
       type: String,
-      required: true,
+      required: [true, "Required Field"],
     },
     address: {
       type: String,
     },
     graduation: {
       type: Number,
-      required: true,
+      required: [true, "Required Field"],
     },
     degree: {
       type: String,
     },
     department: {
       type: String,
-      required: true,
+      required: [true, "Required Field"],
       default: "cse",
     },
     batch: {
       type: Number,
-      required: true,
+      required: [true, "Required Field"],
       min: 1,
     },
     faculty: {
       type: String,
-      required: true,
+      required: [true, "Required Field"],
       enum: ["Science", "Arts", "Business", "Engineering"],
     },
     job: {

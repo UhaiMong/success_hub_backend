@@ -1,6 +1,5 @@
 import httpStatus from "http-status";
 import { paginationHelper } from "../../../helpers/paginationHelpers.js";
-import { User } from "./user.model.js";
 import ApiError from "../../../errors/ApiError.js";
 import { Alumnus } from "./alumnus.model.js";
 import { alumnusSearchableField } from "./alumnus.constant.js";
@@ -60,7 +59,7 @@ const getAllAlumni = async (filters, paginationOption) => {
   const whereCondition =
     andConditions.length > 0 ? { $and: andConditions } : {};
 
-  const result = await User.find(whereCondition)
+  const result = await Alumnus.find(whereCondition)
     .sort(sortConditions)
     .skip(skip)
     .limit(limit);
