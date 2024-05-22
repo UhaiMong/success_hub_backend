@@ -4,24 +4,25 @@ import { usersSearchableField } from "./user.constant.js";
 import { User } from "./user.model.js";
 import ApiError from "../../../errors/ApiError.js";
 
+// Add new User
 const registerUser = async (payload) => {
   const isExist = await User.findOne({
     email: payload?.email,
   });
-
+  console.log(isExist, payload?.registration);
   if (isExist && payload?.registration) {
     throw new ApiError(httpStatus.CONFLICT, "Email is already exist");
   }
 
   if (isExist) {
-    const result = await User.updateOne({ email: payload?.email }, payload);
-    if (result.modifiedCount === 1) {
+    const updateInfo = await User.updateOne({ email: payload?.email }, payload);
+    if (updateInfo.modifiedCount === 1) {
       const updatedUser = await User.findOne({ email: payload?.email });
       return updatedUser;
     }
   }
-  const result = await User.create(payload);
-  return result;
+  const newUser = await User.create(payload);
+  return newUser;
 };
 
 const getAllUsers = async (filters, paginationOption) => {
@@ -81,6 +82,11 @@ const getSingleUser = async (email) => {
   return result;
 };
 
+const getUserByStdUid = async (std_uid) => {
+  const result = await User.findOne({ std_uid });
+  return result;
+};
+
 const updateUser = async (id, payload) => {
   const result = await User.findOneAndUpdate({ _id: id }, payload, {
     new: true,
@@ -99,4 +105,5 @@ export const UserService = {
   getSingleUser,
   updateUser,
   deleteUser,
+  getUserByStdUid,
 };

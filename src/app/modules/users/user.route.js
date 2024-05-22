@@ -1,24 +1,22 @@
 import express from "express";
 import { UserController } from "./user.controller.js";
-import validateRequest from "../../middleware/validationRequest.js";
-import { UserValidation } from "./user.validation.js";
+// import validateRequest from "../../middleware/validationRequest.js";
+// import { UserValidation } from "./user.validation.js";
 
 const router = express.Router();
 
-router.post(
-  "/register",
-  validateRequest(UserValidation.registerUserZodSchema),
-  UserController.registerUser
-);
+router.post("/user-register", UserController.registerUser);
 
 // get single user
 router.get("/:email", UserController.getSingleUser);
 
 // get all users
 router.get("/", UserController.getAllUsers);
+// get user by std_uid
+router.get("/std_uid/:std_uid", UserController.getUserByStdUid);
 
 // update user
-router.put("/:id", UserController.updateUser);
+router.patch("/:id", UserController.updateUser);
 
 // delete user
 router.delete("/:id", UserController.deleteUser);

@@ -43,6 +43,26 @@ const getSingleAlumni = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getSingleAlumniById = catchAsync(async (req, res) => {
+  console.log("Controller - Request ID:", req.params.id);
+  const result = await AlumniService.getSingleAlumniById(req.params.id);
+  console.log("Controller - Result:", result);
+
+  if (!result) {
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: "Alumni not found",
+    });
+  }
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Alumni retrieved successfully",
+    data: result,
+  });
+});
 
 const updateAlumni = catchAsync(async (req, res) => {
   const result = await AlumniService.updateAlumni(req.params.id, req.body);
@@ -70,4 +90,5 @@ export const AlumnusController = {
   getSingleAlumni,
   updateAlumni,
   deleteAlumni,
+  getSingleAlumniById,
 };

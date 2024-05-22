@@ -80,7 +80,21 @@ const getSingleAlumni = async (email) => {
   const result = await Alumnus.findOne({ email });
   return result;
 };
-
+// get single alumni by id
+const getSingleAlumniById = async (id) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new Error("Invalid ID format");
+    }
+    const result = await Alumnus.findById(ObjectId(id));
+    console.log("Service - Found Alumnus:", result);
+    return result;
+  } catch (error) {
+    console.error("Service - Error fetching by ID:", error);
+    throw error;
+  }
+};
+// update alumni
 const updateAlumni = async (id, payload) => {
   const result = await Alumnus.findOneAndUpdate({ _id: id }, payload, {
     new: true,
@@ -99,4 +113,5 @@ export const AlumniService = {
   getSingleAlumni,
   updateAlumni,
   deleteAlumni,
+  getSingleAlumniById,
 };

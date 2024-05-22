@@ -15,6 +15,8 @@ router.post(
 
 // get single alumni
 router.get("/:email", AlumnusController.getSingleAlumni);
+// get Single Alumni by Id
+router.get("/:id", AlumnusController.getSingleAlumniById);
 
 // get all alumni
 router.get("/", AlumnusController.getAllAlumni);

@@ -13,7 +13,7 @@ const registerUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "User update successfully",
+    message: "User Registration successful",
     data: result,
   });
 });
@@ -35,11 +35,36 @@ const getAllUsers = catchAsync(async (req, res) => {
 });
 
 const getSingleUser = catchAsync(async (req, res) => {
-  const result = await UserService.getSingleUser(req.params.email);
+  const result = await UserService.getSingleUser(req.params?.email);
+  if (!result) {
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: "Your record is not found in our system",
+      data: null,
+    });
+  }
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "User retrived successfully",
+    message: "Single User retrieved successfully",
+    data: result,
+  });
+});
+const getUserByStdUid = catchAsync(async (req, res) => {
+  const result = await UserService.getUserByStdUid(req.params?.std_uid);
+  if (!result) {
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: "Your record is not found in our system",
+      data: null,
+    });
+  }
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User found",
     data: result,
   });
 });
@@ -70,4 +95,5 @@ export const UserController = {
   getSingleUser,
   updateUser,
   deleteUser,
+  getUserByStdUid,
 };

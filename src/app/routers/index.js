@@ -14,7 +14,7 @@ const routerModule = [
     route: AdminRoute,
   },
   {
-    path: "/users",
+    path: "/user",
     route: UserRoutes,
   },
   {

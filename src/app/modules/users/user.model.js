@@ -1,43 +1,25 @@
 import { Schema, model } from "mongoose";
-import httpStatus from "http-status";
-import ApiError from "../../../errors/ApiError.js";
 
 const userSchema = new Schema(
   {
-    name: {
+    displayName: {
       type: String,
-      unique: false,
     },
     email: {
       type: String,
       unique: true,
     },
-    phoneNumber: {
+    std_uid: {
       type: String,
-      unique: false,
+      unique: true,
     },
-    nid: {
+    mobileNumber: {
       type: String,
-      unique: false,
-    },
-    drivingLicense: {
-      type: String,
-      unique: false,
-    },
-    gender: {
-      type: String,
-      unique: false,
+      default: "",
     },
     role: {
       type: String,
-      unique: false,
-    },
-    photoURL: {
-      type: String,
-      unique: false,
-    },
-    registration: {
-      type: Boolean,
+      default: "guest",
     },
   },
   {
@@ -45,30 +27,19 @@ const userSchema = new Schema(
   }
 );
 
-// userSchema.pre("save", async function (next) {
-//   const isExist = await User.findOne({
-//     email: this.email,
-//   });
-//   if (isExist) {
-//     throw new ApiError(httpStatus.CONFLICT, "Email is already exist");
-//   }
-//   next();
-// });
+// middleware pre and post
+userSchema.pre("save", function (next) {
+  console.log("Before saving data");
+  next();
+});
+
+userSchema.post("save", function (doc, next) {
+  console.log("After saving data");
+  next();
+});
+// logger
+userSchema.methods = function () {
+  console.log(`Data saved for ${this.displayName}`);
+};
 
 export const User = model("User", userSchema);
-
-// Specify the field names for which you want to remove the unique indexes
-const fieldsToRemoveIndexes = [
-  "phoneNumber",
-  "name",
-  "drivingLicense",
-  "nid",
-  "gender",
-  "role",
-  "photoURL",
-  "password",
-];
-
-fieldsToRemoveIndexes.forEach((fieldName) => {
-  User.collection.dropIndex({ [fieldName]: 1 }, (error, result) => {});
-});
