@@ -12,6 +12,7 @@ const userSchema = new Schema(
     std_uid: {
       type: String,
       unique: true,
+      default: "",
     },
     mobileNumber: {
       type: String,
