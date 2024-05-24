@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 import validator from "validator";
-const Schema = mongoose.Schema;
 
 const contactUsSchema = new Schema(
   {

@@ -19,7 +19,7 @@ const createBanner = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
+//get all banner
 const getAllBanners = catchAsync(async (req, res) => {
   const filters = pick(req.query, bannersFilterableField);
   const paginationOptions = pick(req.query, paginationFields);

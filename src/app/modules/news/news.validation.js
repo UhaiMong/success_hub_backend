@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 const NewsSchemaValidation = z.object({
   body: z.object({
     cat: z.string({
@@ -11,7 +10,7 @@ const NewsSchemaValidation = z.object({
     tags: z.string({
       required_error: "Tags is required",
     }),
-    image: z.string({
+    newsCover: z.string({
       required_error: "Image is required",
     }),
     description: z.string({
@@ -19,9 +18,6 @@ const NewsSchemaValidation = z.object({
     }),
     summery: z.string({
       required_error: "Summery is required",
-    }),
-    about: z.string({
-      required_error: "About is required",
     }),
   }),
 });

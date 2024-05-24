@@ -9,8 +9,8 @@ const newsSchema = new Schema(
       type: String,
       default: "events",
     },
-    summery: { type: String, required: true },
-    image: {
+    summery: { type: String },
+    newsCover: {
       type: String,
     },
     description: {

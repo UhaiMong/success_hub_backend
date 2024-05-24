@@ -5,7 +5,14 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
-function uploadImage(req, res, next) {
+// Function to ensure the upload directory exists
+function ensureUploadDirectoryExists(uploadPath) {
+  if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+  }
+}
+
+function uploadNewsImage(req, res, next) {
   const upload = uploader(
     "news",
     ["image/jpeg", "image/jpg", "image/png"],
@@ -13,8 +20,14 @@ function uploadImage(req, res, next) {
     "Only .jpg, jpeg or .png format allowed!"
   );
 
-  // call the middleware function with single file field
-  upload.single("image")(req, res, (err) => {
+  // Ensure the upload directory exists
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  const uploadPath = path.join(__dirname, "../../../uploads/news/");
+  ensureUploadDirectoryExists(uploadPath);
+
+  // Call the middleware function with single file field
+  upload.single("newsCover")(req, res, (err) => {
     if (err) {
       throw new ApiError(500, err.message);
     } else {
@@ -29,17 +42,12 @@ function uploadImage(req, res, next) {
 }
 
 // Middleware to delete an image
-function deleteImage(image) {
+function deleteNewsImage(image) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
-  // Check if req.image exists and is a valid image filename
+
   if (image) {
-    const imagePath = path.join(
-      __dirname,
-      "../../..",
-      "./uploads/news/",
-      image
-    );
+    const imagePath = path.join(__dirname, "../../../uploads/news/", image);
     fs.unlink(imagePath, (err) => {
       if (err) {
         console.error(`Error deleting file: ${err}`);
@@ -48,4 +56,4 @@ function deleteImage(image) {
   }
 }
 
-export const NewsImage = { uploadImage, deleteImage };
+export const NewsImageUpload = { uploadNewsImage, deleteNewsImage };

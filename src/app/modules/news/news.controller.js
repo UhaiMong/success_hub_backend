@@ -7,10 +7,10 @@ import { NewsService } from "./news.service.js";
 import { newsFilterableField } from "./news.constants.js";
 
 const addNews = catchAsync(async (req, res) => {
-  const image = req.image;
+  const newsCover = req.image;
   const { ...newsData } = req.body;
-  const news = { ...newsData, image };
-  const result = await NewsService.addNews(news);
+  const data = { ...newsData, newsCover };
+  const result = await NewsService.addNews(data);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

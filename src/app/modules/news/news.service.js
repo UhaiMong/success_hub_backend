@@ -3,7 +3,7 @@ import ApiError from "../../../errors/ApiError.js";
 import { paginationHelper } from "../../../helpers/paginationHelpers.js";
 import { News } from "./news.model.js";
 import { newsSearchableField } from "./news.constants.js";
-import { NewsImage } from "../../middleware/uploader/news.js";
+import { NewsImageUpload } from "../../middleware/uploader/uploadNews.js";
 
 const addNews = async (payload) => {
   const result = await News.create(payload);
@@ -75,7 +75,7 @@ const updateNews = async (id, payload) => {
   }
 
   if (payload?.image && news?.image) {
-    NewsImage.deleteImage(news?.image);
+    NewsImageUpload.deleteNewsImage(news?.image);
   }
 
   const result = await News.findByIdAndUpdate({ _id: id }, payload, {
@@ -92,7 +92,7 @@ const deleteNews = async (id) => {
   }
 
   if (news.image) {
-    NewsImage.deleteImage(news.image);
+    NewsImageUpload.deleteNewsImage(news.image);
   }
 
   const result = await News.findOneAndDelete({ _id: id });

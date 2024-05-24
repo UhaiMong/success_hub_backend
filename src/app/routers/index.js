@@ -5,6 +5,7 @@ import { EventRoutes } from "../modules/event/event.route.js";
 import { NewsRoute } from "../modules/news/news.route.js";
 import { AdminRoute } from "../modules/admin/admin.route.js";
 import { AlumniRoute } from "../modules/alumnus/alumni.route.js";
+import { ContactRoute } from "../modules/contact/contact.route.js";
 
 const routers = express.Router();
 
@@ -32,6 +33,10 @@ const routerModule = [
   {
     path: "/banner",
     route: BannerRoutes,
+  },
+  {
+    path: "/contact",
+    route: ContactRoute,
   },
 ];
 
